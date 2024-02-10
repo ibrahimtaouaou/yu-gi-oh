@@ -1,4 +1,5 @@
 import logo from "../images/logo.png";
+import MostViewedCards from "../features/cards/MostViewedCards";
 
 function Home() {
   return (
@@ -17,6 +18,7 @@ function Home() {
         &#41;, the implementation of a firebase real-time database and a storage
         for the images.
       </p>
+      <MostViewedCards></MostViewedCards>
     </div>
   );
 }
