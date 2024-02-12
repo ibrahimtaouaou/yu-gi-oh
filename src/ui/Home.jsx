@@ -18,7 +18,7 @@ function Home() {
         &#41;, the implementation of a firebase real-time database and a storage
         for the images.
       </p>
-      <MostViewedCards></MostViewedCards>
+      <MostViewedCards />
     </div>
   );
 }
