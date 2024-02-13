@@ -9,5 +9,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@xpd/tailwind-3dtransforms")],
 };

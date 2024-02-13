@@ -1,7 +1,7 @@
 // const API_URL_CARD = "http://localhost:3000/api/cards";
-const API_URL_MVC = "http://localhost:3000/api/cards/mostViewed";
+// const API_URL_MVC = "http://localhost:3000/api/cards/mostViewed";
 const API_URL_CARD = "https://ygo-api.netlify.app/api/cards";
-// const API_URL_MVC = "https://ygo-api.netlify.app/api/cards/mostViewed";
+const API_URL_MVC = "https://ygo-api.netlify.app/api/cards/mostViewed";
 
 // const customId = 15;
 // const id = 64867422;

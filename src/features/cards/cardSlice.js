@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCard, getMostViewedCards } from "../../services/apiCard";
+import { getCard, getMostViewedCards } from "../../services/apiCard_temp";
 
 export const fetchOneCard = createAsyncThunk(
   "card/fetchOneCard",
@@ -22,13 +22,14 @@ export const getCardFromState = (state) => {
 };
 
 export const getMostViewedCardsFromState = (state) => {
+  console.log("Im getting in cardSlice");
   return state.card.mostViewedCard;
 };
 
 const initialState = {
   status: "idle",
   card: {},
-  mostViewedCard: {},
+  mostViewedCard: [],
 };
 
 const cardSlice = createSlice({

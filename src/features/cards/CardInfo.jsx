@@ -22,7 +22,7 @@ function CardInfo() {
   );
 
   return (
-    <div className="mx-auto flex flex-col items-center">
+    <div className="mx-auto mt-4 flex flex-col items-center">
       {isLoading && <Loader />}
       <h1 className="font-bold [font-family:'Roboto-Bold',Helvetica]">
         {card.name}

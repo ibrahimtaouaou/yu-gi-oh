@@ -1,5 +1,7 @@
 import logo from "../images/logo.png";
-import MostViewedCards from "../features/cards/MostViewedCards";
+// import MostViewedCards from "../features/cards/MostViewedCards";
+import MostViewedCards from "../features/cards/MostViewedCards v3";
+import ControlledCarousel from "../features/cards/ControlledCarousel";
 
 function Home() {
   return (
@@ -18,6 +20,7 @@ function Home() {
         &#41;, the implementation of a firebase real-time database and a storage
         for the images.
       </p>
+      {/* <ControlledCarousel /> */}
       <MostViewedCards />
     </div>
   );
