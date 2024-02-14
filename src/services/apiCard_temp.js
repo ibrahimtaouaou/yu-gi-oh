@@ -1,8 +1,19 @@
 import rawData from "../json/light-card-misc.json";
-import * as img from "../helper/img/images";
+// import * as img from "../helper/img/images";
 
 // const customId = 15;
 // const id = 64867422;
+
+function getFolder(cardInfo) {
+  let folder = "";
+  if (cardInfo.type.includes("onster")) folder = "monster";
+  else if (cardInfo.type.includes("rap")) folder = "trap";
+  else if (cardInfo.type.includes("pell")) folder = "spell";
+  else if (cardInfo.type.includes("kill")) folder = "skill";
+  else if (cardInfo.type.includes("oken")) folder = "token";
+
+  return folder;
+}
 
 export async function getCard(_id) {
   const id = Number(_id);
@@ -14,9 +25,11 @@ export async function getCard(_id) {
   console.log("NEW DATA");
   const data = rawData;
   const cardInfo = data.data.find((card) => card.id === id);
+  const folder = getFolder(cardInfo);
   const selectedCard = {
     ...cardInfo,
-    imageUrl: img[`_${cardInfo.id}`],
+    // imageUrl: img[`_${cardInfo.id}`],
+    imageUrl: `/src/images/card-img/${folder}/${id}.jpg` || "error",
   };
   // console.log("🤨🤨 ", selectedCard.imageUrl, img);
   localStorage.setItem(`${id}`, JSON.stringify(selectedCard));
@@ -46,7 +59,11 @@ export async function getMostViewedCards(num) {
   console.log("test");
   const selectedCard = await Promise.all(
     cardInfo.map(async (card) => {
-      return { ...card, imageUrl: await img[`_${card.id}`] };
+      const folder = getFolder(card);
+      return {
+        ...card,
+        imageUrl: `/src/images/card-img/${folder}/${card.id}.jpg`,
+      };
     }),
   );
 
