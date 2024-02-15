@@ -1,4 +1,4 @@
-import star from "../images/Level.png";
+import star from "/Level.png";
 
 function Star({ level }) {
   const arr = Array.from(Array(level).keys());

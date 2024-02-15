@@ -1,44 +1,83 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { AsyncTypeahead } from "react-bootstrap-typeahead";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { getCardsQueries } from "../../services/apiCard_temp";
 import { useNavigate } from "react-router-dom";
 
-function SearchCards() {
-  const [query, setQuery] = useState("");
+const SearchCards = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+  const typeaheadRef = useRef(null);
+
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    if (!query) return;
-    navigate(`/card/${query}`);
-    setQuery("");
-  }
+  const handleSearch = async (query) => {
+    setIsLoading(true);
+
+    const items = await getCardsQueries(query);
+    setOptions(items);
+    setIsLoading(false);
+  };
+
+  const handleClick = (id) => {
+    // typeahead.clear();
+    navigate(`/card/${id}`);
+  };
+
+  // const handleItemClick = (id) => {
+  //   setId(id);
+  // };
+
+  const filterBy = () => true;
 
   return (
-    // <div className="relative">
-    //   <input
-    //     type="text"
-    //     placeholder="Search..."
-    //     value={query}
-    //     onChange={(e) => setQuery(e.target.value)}
-    //     // variant="outlined"
-    //     className="w-52 rounded-full border border-stone-200 px-4 py-2 text-sm transition-all duration-300 focus:w-auto focus:outline-none focus:ring focus:ring-red-500"
-    //   />
-    //   <button
-    //     onClick={handleSubmit}
-    //     // variant="contained"
-    //     className="absolute bottom-0 right-0 top-0 m-1 rounded-full border-none  text-center text-xl uppercase"
-    //   >
-    //     <BsArrowRightCircleFill />
-    //   </button>
-    // </div>
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder="Search card by ID"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full max-w-24 rounded-full bg-blue-100 px-4 py-2 text-sm transition-all duration-300 placeholder:text-stone-400 focus:max-w-36 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50 sm:w-64 sm:focus:w-72"
+    <div className="flex flex-shrink items-center">
+      <AsyncTypeahead
+        ref={typeaheadRef}
+        filterBy={filterBy}
+        id="async-example"
+        isLoading={isLoading}
+        labelKey="name"
+        minLength={3}
+        onSearch={handleSearch}
+        options={options}
+        useCache={true}
+        flip={true}
+        placeholder="Search for a Card..."
+        size="lg"
+        renderMenuItemChildren={(option) => (
+          <button
+            onClick={() => {
+              setTimeout(() => typeaheadRef.current.clear(), 0);
+              handleClick(option.id);
+            }}
+            className="flex items-center"
+          >
+            <img
+              className="size-20 object-scale-down"
+              alt={option.name}
+              src={option.imageUrl}
+              onError={(e) => {
+                e.target.onError = null;
+                e.target.src = "/no-image.jpg";
+              }}
+            />
+            <span className="text-wrap font-semibold">{option.name}</span>
+          </button>
+        )}
       />
-    </form>
+      {/* <button
+        onClick={handleClick}
+        className="mx-2 flex h-10 w-10 justify-center rounded-full border bg-stone-100"
+      >
+        <img
+          src="/search.png"
+          alt="search"
+          className="h-6 w-6 shrink-0 self-center "
+        />
+      </button> */}
+    </div>
   );
-}
+};
 
 export default SearchCards;

@@ -56,6 +56,7 @@ function CardDetails({ card }) {
       ) : (
         ""
       )}
+      {card?.type?.includes("Link") ? "" : ""}
       {card?.card_sets ? (
         <div className="col-span-2 flex flex-col items-center">
           <p className={`${headStyles}`}>Sets</p>

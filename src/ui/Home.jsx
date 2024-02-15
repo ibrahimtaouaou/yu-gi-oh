@@ -1,12 +1,11 @@
-import logo from "../images/logo.png";
+import logo from "/logo.png";
 // import MostViewedCards from "../features/cards/MostViewedCards";
 import MostViewedCards from "../features/cards/MostViewedCards v3";
-import ControlledCarousel from "../features/cards/ControlledCarousel";
 
 function Home() {
   return (
     <div className="flex flex-col items-center">
-      <img src={logo} alt="logo" className="h-24" />
+      <img src={logo} alt="logo" className="my-4 h-24" />
       <h1>Hello dear User !</h1>
       <p className="mx-2">
         This app has been developped from scratch, including the new API
@@ -20,7 +19,7 @@ function Home() {
         &#41;, the implementation of a firebase real-time database and a storage
         for the images.
       </p>
-      {/* <ControlledCarousel /> */}
+      <img src={logo} alt="logo" className="my-4 h-24" />
       <MostViewedCards />
     </div>
   );

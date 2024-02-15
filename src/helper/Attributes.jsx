@@ -1,10 +1,10 @@
-import dark from "../images/DARK.svg";
-import wind from "../images/WIND.svg";
-import water from "../images/WATER.svg";
-import fire from "../images/FIRE.svg";
-import light from "../images/LIGHT.svg";
-import earth from "../images/EARTH.svg";
-import divine from "../images/DIVINE.svg";
+import dark from "/DARK.svg";
+import wind from "/WIND.svg";
+import water from "/WATER.svg";
+import fire from "/FIRE.svg";
+import light from "/LIGHT.svg";
+import earth from "/EARTH.svg";
+import divine from "/DIVINE.svg";
 
 function Attributes({ attribute }) {
   let att;

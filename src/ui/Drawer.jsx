@@ -11,9 +11,17 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
+import HomeIcon from "@mui/icons-material/Home";
 
 export default function SwipeableTemporaryDrawer() {
   const [leftAnchor, setLeftAnchor] = React.useState(false);
+
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/");
+  }
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -36,11 +44,11 @@ export default function SwipeableTemporaryDrawer() {
         onKeyDown={toggleDrawer(false)}
       >
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["Home"].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <HomeIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -49,7 +57,7 @@ export default function SwipeableTemporaryDrawer() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+          {["Todo 1", "Todo 2", "Todo 3"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>

@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCard, getMostViewedCards } from "../../services/apiCard_temp";
+import { getCardById, getMostViewedCards } from "../../services/apiCard_temp";
 
 export const fetchOneCard = createAsyncThunk(
   "card/fetchOneCard",
   async function (id) {
-    const cardInfo = await getCard(id);
+    const cardInfo = await getCardById(id);
     return cardInfo;
   },
 );

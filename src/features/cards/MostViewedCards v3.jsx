@@ -38,7 +38,7 @@ function MostViewedCards() {
     <>
       {mostViewedCards.length !== 0 && (
         <Carousel
-          className="mt-4"
+          className="mt-8"
           activeIndex={index}
           onSelect={handleSelect}
           interval={null}
