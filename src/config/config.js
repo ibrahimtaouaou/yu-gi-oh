@@ -31,4 +31,4 @@ export const app = initializeApp(firebaseConfig);
 
 // firebaseApps previously initialized using initializeApp()
 export const db = getFirestore();
-connectFirestoreEmulator(db, "127.0.0.1", 8080);
+// connectFirestoreEmulator(db, "127.0.0.1", 8080);
