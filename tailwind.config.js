@@ -7,6 +7,12 @@ export default {
       height: {
         screen: "100dvh",
       },
+      colors: {
+        grey: "#EEEEEE",
+        navy1: "#76ABAE",
+        navy2: "#31363F",
+        navy3: "#222831",
+      },
     },
   },
   plugins: [require("@xpd/tailwind-3dtransforms")],

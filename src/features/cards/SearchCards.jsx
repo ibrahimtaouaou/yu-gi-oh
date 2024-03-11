@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { AsyncTypeahead } from "react-bootstrap-typeahead";
-import "react-bootstrap-typeahead/css/Typeahead.css";
 import { getCardsQueries } from "../../services/apiCard_temp";
 import { useNavigate } from "react-router-dom";
 
@@ -20,13 +19,8 @@ const SearchCards = () => {
   };
 
   const handleClick = (id) => {
-    // typeahead.clear();
     navigate(`/card/${id}`);
   };
-
-  // const handleItemClick = (id) => {
-  //   setId(id);
-  // };
 
   const filterBy = () => true;
 
@@ -66,16 +60,6 @@ const SearchCards = () => {
           </button>
         )}
       />
-      {/* <button
-        onClick={handleClick}
-        className="mx-2 flex h-10 w-10 justify-center rounded-full border bg-stone-100"
-      >
-        <img
-          src="/search.png"
-          alt="search"
-          className="h-6 w-6 shrink-0 self-center "
-        />
-      </button> */}
     </div>
   );
 };

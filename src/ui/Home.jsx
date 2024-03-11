@@ -1,6 +1,6 @@
 import logo from "/logo.png";
 // import MostViewedCards from "../features/cards/MostViewedCards";
-import MostViewedCards from "../features/cards/MostViewedCards v3";
+import MostViewedCards from "../features/cards/MostViewedCards";
 
 function Home() {
   return (

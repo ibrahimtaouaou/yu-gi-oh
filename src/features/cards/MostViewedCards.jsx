@@ -1,68 +1,76 @@
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
-import ListSubheader from "@mui/material/ListSubheader";
-import IconButton from "@mui/material/IconButton";
-import InfoIcon from "@mui/icons-material/Info";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMostViewedCards, getMostViewedCardsFromState } from "./cardSlice";
-import Loader from "../../ui/Loader";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../ui/Loader";
+
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import { useState } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import CarouselItem from "react-bootstrap/CarouselItem";
 
 function MostViewedCards() {
+  const [index, setIndex] = useState(0);
   const mostViewedCards = useSelector(getMostViewedCardsFromState);
   const isLoading = useSelector((state) => state.card.status === "loading");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("ahhhhh");
 
   useEffect(
     function () {
+      console.log("UseEffect here");
       dispatch(fetchMostViewedCards(10));
     },
     [dispatch],
   );
 
-  function handleClick(name, id) {
-    console.log(`J'ai cliqué sur ${name}`);
+  function handleSelect(selectedIndex) {
+    setIndex(selectedIndex);
+  }
+
+  function handleClick(id) {
     navigate(`/card/${id}`);
   }
 
-  if (Object.keys(mostViewedCards).length === 0) return;
   return (
-    <ImageList sx={{ height: 450 }}>
-      {isLoading && <Loader />}
-      <ImageListItem key="Subheader" cols={2}>
-        <ListSubheader component="div" className="bg-stone-600">
-          Most Popular Cards
-        </ListSubheader>
-      </ImageListItem>
-      {mostViewedCards.map((item) => (
-        <ImageListItem
-          onClick={() => handleClick(item.name, item.id)}
-          key={item.imageUrl}
+    <>
+      {mostViewedCards.length !== 0 && (
+        <Carousel
+          className="mt-8"
+          activeIndex={index}
+          onSelect={handleSelect}
+          interval={null}
+          wrap={true}
+          indicators={true}
+          slide={false}
+          variant="dark"
+          indicatorLabels
         >
-          <img
-            src={`${item.imageUrl}?w=248&fit=crop&auto=format`}
-            alt={item.name}
-            loading="lazy"
-          />
-          <ImageListItemBar
-            title={item.name}
-            // subtitle={item.author}
-            actionIcon={
-              <IconButton
-                sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                aria-label={`info about ${item.title}`}
+          {isLoading && <Loader />}
+          {mostViewedCards?.map((card, i) => {
+            return (
+              <CarouselItem
+                key={card.name}
+                itemID={i}
+                className="h-54 w-38"
+                onClick={() => handleClick(card.id)}
               >
-                <InfoIcon />
-              </IconButton>
-            }
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
+                <h5 className="mb-1 text-center text-xl font-semibold">
+                  Most Popular Cards ({i + 1}/10)
+                </h5>
+                <img
+                  src={`${card.imageUrl}`}
+                  alt={card.name}
+                  loading="lazy"
+                  className="size-96 object-scale-down"
+                />
+              </CarouselItem>
+            );
+          })}
+        </Carousel>
+      )}
+    </>
   );
 }
 

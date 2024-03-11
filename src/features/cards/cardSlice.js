@@ -22,7 +22,6 @@ export const getCardFromState = (state) => {
 };
 
 export const getMostViewedCardsFromState = (state) => {
-  console.log("Im getting in cardSlice");
   return state.card.mostViewedCard;
 };
 
