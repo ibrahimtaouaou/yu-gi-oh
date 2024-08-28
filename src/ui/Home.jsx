@@ -1,6 +1,7 @@
 import logo from "/logo.png";
 // import MostViewedCards from "../features/cards/MostViewedCards";
 import MostViewedCards from "../features/cards/MostViewedCards";
+import AllCards from "../features/cards/AllCards";
 
 function Home() {
   return (
@@ -19,8 +20,9 @@ function Home() {
         &#41;, the implementation of a firebase real-time database and a storage
         for the images.
       </p>
-      <img src={logo} alt="logo" className="my-4 h-24" />
-      <MostViewedCards />
+      <div>Cards</div>
+      <AllCards />
+      {/* <MostViewedCards /> */}
     </div>
   );
 }

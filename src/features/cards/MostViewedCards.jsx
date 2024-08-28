@@ -3,6 +3,8 @@ import { fetchMostViewedCards, getMostViewedCardsFromState } from "./cardSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../ui/Loader";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -19,7 +21,6 @@ function MostViewedCards() {
 
   useEffect(
     function () {
-      console.log("UseEffect here");
       dispatch(fetchMostViewedCards(10));
     },
     [dispatch],
@@ -33,9 +34,15 @@ function MostViewedCards() {
     navigate(`/card/${id}`);
   }
 
+  function handleChangeIndex(num) {
+    if (index === 0 && num === -1) setIndex(9);
+    else if (index === 9 && num === 1) setIndex(0);
+    else setIndex(index + num);
+  }
+
   return (
     <>
-      {mostViewedCards.length !== 0 && (
+      {/* {mostViewedCards.length !== 0 && (
         <Carousel
           className="mt-8"
           activeIndex={index}
@@ -69,7 +76,41 @@ function MostViewedCards() {
             );
           })}
         </Carousel>
-      )}
+      )} */}
+      <h5 className="mb-1 text-center text-xl font-semibold">
+        Most Popular Cards ({index + 1}/10)
+      </h5>
+      <div className="flex">
+        <button
+          className="m-2 rounded-md px-2 hover:bg-slate-400"
+          onClick={() => handleChangeIndex(-1)}
+        >
+          <NavigateBeforeIcon />
+        </button>
+        {isLoading && <Loader />}
+        {mostViewedCards?.map((card, i) => {
+          return (
+            <button
+              key={`MVC_${card.name}_${i}`}
+              onClick={() => handleClick(card.id)}
+            >
+              <img
+                key={`MVC_${card.name}-${i}`}
+                src={`${card.imageUrl}`}
+                alt={card.name}
+                loading="lazy"
+                className={`aspect-auto max-h-[350px] object-scale-down ${index !== i ? "hidden" : ""}`}
+              />
+            </button>
+          );
+        })}
+        <button
+          className="m-2 rounded-md px-2 hover:bg-slate-400"
+          onClick={() => handleChangeIndex(1)}
+        >
+          <NavigateNextIcon />
+        </button>
+      </div>
     </>
   );
 }

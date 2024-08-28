@@ -19,11 +19,9 @@ function getFolder(cardInfo) {
 
 function resetTimeout(timeout) {
   timeout && clearTimeout(timeout);
-  console.log("time 1");
   const newTimeout = setTimeout(
     () => {
       localStorage.clear();
-      console.log("time 2 clearing");
       clearTimeout(newTimeout);
     },
     1000 * 60 * 60 * 6,
@@ -31,14 +29,27 @@ function resetTimeout(timeout) {
   currentTimeout = newTimeout;
 }
 
+export async function getTotalCardNumber() {
+  const localData = localStorage.getItem(`totalCards`);
+  if (localData) {
+    return JSON.parse(localData);
+  }
+  const data = rawData;
+  const num = data.data.reduce((acc, _) => {
+    return acc + 1;
+  }, 0);
+  localStorage.setItem(`totalCards`, JSON.stringify(num));
+  return num;
+}
+
 export async function getCardById(_id) {
   const id = Number(_id);
   const localData = localStorage.getItem(`${id}`);
   if (localData) {
-    console.log("LOCAL DATA");
+    // console.log("LOCAL DATA");
     return JSON.parse(localData);
   }
-  console.log("NEW DATA");
+  // console.log("NEW DATA");
   const data = rawData;
   const cardInfo = data.data.find((card) => card.id === id);
   const folder = getFolder(cardInfo);
@@ -55,7 +66,6 @@ export async function getCardById(_id) {
 export async function getCardByName(name) {
   const data = rawData;
   const cardInfo = await data.data.find((card) => {
-    console.log(`${card.name.toLowerCase()} /// ${name.toLowerCase()}`);
     return card.name.toLowerCase() === name.toLowerCase();
   });
   return cardInfo.id;
@@ -64,19 +74,15 @@ export async function getCardByName(name) {
 export async function getMostViewedCards(num) {
   const localMVCData = localStorage.getItem(`${num}mostViewedCard`);
   if (localMVCData) {
-    console.log("LOCAL MVC DATA 💥");
     return JSON.parse(localMVCData);
   }
-  console.log("NEW MVC DATA 💥");
   const data = rawData;
 
   const newData = data.data
     .map((card) => card)
     .sort((a, b) => b.misc_info[0].views - a.misc_info[0].views);
 
-  console.log("test");
   const cardInfo = newData.slice(0, num);
-  console.log("test");
   const selectedCard = await Promise.all(
     cardInfo.map(async (card) => {
       const folder = getFolder(card);
@@ -96,6 +102,44 @@ export async function getMostViewedCards(num) {
     }
   });
   return selectedCard;
+}
+
+export async function getAllCardsSortedBy(sort) {
+  // const localSortedData = localStorage.getItem(`${sort}SortedCards`);
+  // if (localSortedData) {
+  //   return JSON.parse(localSortedData);
+  // }
+  const data = rawData;
+  const newData = data.data
+    .map((card) => card)
+    .sort((a, b) => {
+      let sortedCards;
+      sort === "type"
+        ? (sortedCards = a.type.localeCompare(b.type))
+        : sort === "name"
+          ? (sortedCards = b.name - a.name)
+          : (sortedCards = b.misc_info[0].views - a.misc_info[0].views);
+      return sortedCards;
+    });
+
+  const cardsInfo = await Promise.all(
+    newData.map(async (card) => {
+      const folder = getFolder(card);
+      return {
+        ...card,
+        imageUrl: `/card-img/${folder}/${card.id}.jpg`,
+      };
+    }),
+  );
+  // localStorage.setItem(`${sort}SortedCards`, JSON.stringify(cardsInfo));
+  // resetTimeout(currentTimeout);
+  // cardsInfo.forEach((card) => {
+  //   if (!localStorage.getItem(`${card.id}`)) {
+  //     localStorage.setItem(`${card.id}`, JSON.stringify(card));
+  //     resetTimeout(currentTimeout);
+  //   }
+  // });
+  return cardsInfo;
 }
 
 export async function getCardsQueries(q) {

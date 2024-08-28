@@ -18,9 +18,9 @@ function Profile() {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const userID = useSelector(getUserIDFromState);
-  const hearts = useSelector(getHeartsFromState);
-  const isHeartsEmpty = hearts.length === 0;
-  const imgs = useSelector(getImgsFromState);
+  // const hearts = useSelector(getHeartsFromState);
+  // const isHeartsEmpty = hearts.length === 0;
+  // const imgs = useSelector(getImgsFromState);
   const navigate = useNavigate();
 
   function handleSave() {
@@ -29,12 +29,15 @@ function Profile() {
     changeUsername(userID, input);
   }
 
-  function handleImageClick(id) {
-    navigate(`/card/${id}`);
-  }
+  // function handleImageClick(id) {
+  //   navigate(`/card/${id}`);
+  // }
 
   return (
     <div className="flex flex-col items-center">
+      <button className="mx-2 px-2" onClick={() => navigate("/user/favorites")}>
+        FAVORITES
+      </button>
       <div>
         <h1 className="mt-2 font-semibold">
           Hello {username} !
@@ -48,8 +51,8 @@ function Profile() {
       </div>
       <div>
         <dialog open={open}>
-          <div className="bg-navy1 flex flex-col flex-wrap gap-2 border p-4">
-            <div className="text-navy3 self-center font-semibold">
+          <div className="flex flex-col flex-wrap gap-2 border bg-navy1 p-4">
+            <div className="self-center font-semibold text-navy3">
               New Username
             </div>
             <input
@@ -60,13 +63,13 @@ function Profile() {
               }}
             />
             <button
-              className="bg-grey text-navy3 hover:bg-navy3 hover:text-grey border-navy3 w-auto rounded-full border px-2"
+              className="w-auto rounded-full border border-navy3 bg-grey px-2 text-navy3 hover:bg-navy3 hover:text-grey"
               onClick={handleSave}
             >
               Save
             </button>
             <button
-              className="bg-grey text-navy3 hover:bg-navy3 hover:text-grey border-navy3 w-auto rounded-full border px-2"
+              className="w-auto rounded-full border border-navy3 bg-grey px-2 text-navy3 hover:bg-navy3 hover:text-grey"
               onClick={() => setOpen(false)}
             >
               Cancel
@@ -74,14 +77,14 @@ function Profile() {
           </div>
         </dialog>
       </div>
-      <h2 className="text-navy3 m-2 text-xl font-semibold">My hearts</h2>
+      {/* <h2 className="m-2 text-xl font-semibold text-navy3">My hearts</h2>
       <div className="flex justify-center">
         {isHeartsEmpty ? (
           <p className="mt-4 italic">
             No cards to show. Add cards to your favorites to display them here!
           </p>
         ) : (
-          <div className=" m-4 grid grid-cols-5 gap-2">
+          <div className=" m-4 grid grid-cols-1 items-center">
             {hearts.map((heart, i) => (
               <button key={heart} onClick={() => handleImageClick(heart)}>
                 <CardImage src={imgs[i]} alt={heart} />
@@ -89,7 +92,7 @@ function Profile() {
             ))}
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

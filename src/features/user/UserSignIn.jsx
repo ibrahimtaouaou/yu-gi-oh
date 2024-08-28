@@ -53,7 +53,6 @@ function UserSignIn() {
       );
       dispatch(login(userCredential.user.uid));
       navigate("/");
-      console.log(userCredential.user.uid);
       addNewUser(userCredential.user.uid);
     } catch (err) {
       console.log(err);
@@ -66,13 +65,19 @@ function UserSignIn() {
       {isLoggedIn ? (
         <Navigate to="/" />
       ) : (
-        <form onSubmit={handleLogin} className="flex justify-center">
+        <form onSubmit={handleLogin} className="mt-8 flex justify-center">
           <div className="grid max-w-72 grid-cols-1 gap-1 self-center">
             <p>Email</p>
-            <input onChange={(e) => setEmail(e.target.value)} />
+            <input
+              className="border"
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <p className="font-semibold text-red-600">{error}</p>
             <p>Password</p>
-            <input onChange={(e) => setPassword(e.target.value)} />
+            <input
+              className="border"
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <p className="font-semibold text-red-600">{error}</p>
             <button
               onClick={(e) => handleLogin(e)}

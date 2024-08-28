@@ -6,6 +6,7 @@ import Error from "./ui/Error";
 import SignIn from "./ui/SignIn";
 import User from "./ui/User";
 import PrivateRoute from "./auth/PrivateRoute";
+import Hearts from "./features/user/Hearts";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,8 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/login", element: <SignIn /> },
       { path: "/user", element: <PrivateRoute Component={User} /> },
-      { path: "/card/:id", element: <CardInfo />, errorElement: <Error /> },
+      { path: "/user/favorites", element: <PrivateRoute Component={Hearts} /> },
+      { path: "/card/:id", element: <CardInfo /> },
     ],
   },
 ]);

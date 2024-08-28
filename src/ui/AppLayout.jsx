@@ -8,8 +8,14 @@ function AppLayout() {
       <div className="sticky top-0">
         <Header />
       </div>
+      <div className="grid grid-cols-10">
+        <div className="bg- bg-bisque col-span-1"></div>
+        <div className="bg-floral col-span-8">
+          <Outlet />
+        </div>
+        <div className="bg-bisque col-span-1"></div>
+      </div>
 
-      <Outlet />
       <div className="sticky bottom-0">
         <QuickShortcuts />
       </div>

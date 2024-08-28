@@ -10,7 +10,7 @@ import { useState } from "react";
 import auth from "../auth/authentication";
 import { signOut } from "firebase/auth";
 
-export default function BasicMenu() {
+export default function ProfileMenu() {
   const navigate = useNavigate();
   const status = useSelector(getLoginStatusFromState);
   const dispatch = useDispatch();
@@ -72,7 +72,6 @@ export default function BasicMenu() {
             }}
           >
             <MenuItem onClick={handleProfile}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={handleSignOut}>Logout</MenuItem>
           </Menu>
         </>
@@ -86,15 +85,6 @@ export default function BasicMenu() {
             onClick={handleLogin}
           >
             LogIn
-          </Button>
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleSignUp}
-          >
-            SignUp
           </Button>
           {/* <Button
             id="basic-button"
